@@ -105,19 +105,21 @@ html, body, #root {
 }
 
 .product-card {
-  background-color: #fff;
+  background-color: #f5f5dc;;
   padding: 1rem;
   border-radius: 8px;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   transition: transform 0.2s;
+  max-width: 300px;
+
 }
 
 
 .product-card img {
   width: 100%;
   height: 300px;
-  object-fit: cover; 
+  object-fit: contain; 
   border-radius: 8px;
 }
 

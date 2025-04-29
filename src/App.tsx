@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import './App.css';
+import calca1 from './assets/calca1.jpg';
+import calca2 from './assets/calca2.jpg';
+
 
 interface Product {
   id: number;
@@ -36,8 +39,8 @@ const App: React.FC = () => {
     {
       title: 'Calças',
       products: [
-        { id: 7, name: 'Calça 1', imageUrl: 'https://via.placeholder.com/150' },
-        { id: 8, name: 'Calça 2', imageUrl: 'https://via.placeholder.com/150' },
+        { id: 7, name: 'Calça 1', imageUrl: calca1 },
+        { id: 8, name: 'Calça 2', imageUrl: calca2 },
       ],
     },
     {
