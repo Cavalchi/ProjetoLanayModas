@@ -1,60 +1,13 @@
 import React, { useState } from 'react';
 import './App.css';
-import calca1 from './assets/calca1.jpg';
-import calca2 from './assets/calca2.jpg';
-
-
-interface Product {
-  id: number;
-  name: string;
-  imageUrl: string;
-}
-
-interface Section {
-  title: string;
-  products: Product[];
-}
+import { sections } from './data/products'; // Importa os dados de sections
 
 const App: React.FC = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const sections: Section[] = [
-    {
-      title: 'Blusas',
-      products: [
-        { id: 1, name: 'Blusa 1', imageUrl: 'https://via.placeholder.com/150' },
-        { id: 2, name: 'Blusa 2', imageUrl: 'https://via.placeholder.com/150' },
-        { id: 3, name: 'Blusa 3', imageUrl: 'https://via.placeholder.com/150' },
-      ],
-    },
-    {
-      title: 'Vestidos',
-      products: [
-        { id: 4, name: 'Vestido 1', imageUrl: 'https://via.placeholder.com/150' },
-        { id: 5, name: 'Vestido 2', imageUrl: 'https://via.placeholder.com/150' },
-        { id: 6, name: 'Vestido 3', imageUrl: 'https://via.placeholder.com/150' },
-      ],
-    },
-    {
-      title: 'Calças',
-      products: [
-        { id: 7, name: 'Calça 1', imageUrl: calca1 },
-        { id: 8, name: 'Calça 2', imageUrl: calca2 },
-      ],
-    },
-    {
-      title: 'Bermudas',
-      products: [
-        { id: 9, name: 'Bermuda 1', imageUrl: 'https://via.placeholder.com/150' },
-        { id: 10, name: 'Bermuda 2', imageUrl: 'https://via.placeholder.com/150' },
-      ],
-    },
-  ];
-
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simula busca por nome de produto
     const found = sections.some(section =>
       section.products.some(product =>
         product.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -86,9 +39,7 @@ const App: React.FC = () => {
                 />
               </form>
             ) : (
-              <button onClick={() => setSearchOpen(true)}>
-                🔍
-              </button>
+              <button onClick={() => setSearchOpen(true)}>🔍</button>
             )}
           </div>
         </div>
@@ -116,14 +67,13 @@ const App: React.FC = () => {
       </header>
 
       <main className="main">
-        {sections.map(section => (
+        {sections.map((section) => (
           <section key={section.title} className="product-section">
-            <h2>{section.title}</h2>
+            <h2 className="section-title">{section.title}</h2>
             <div className="product-grid">
-              {section.products.map(product => (
+              {section.products.map((product) => (
                 <div key={product.id} className="product-card">
-                  <img src={product.imageUrl} alt={product.name} />
-                  <p>{product.name}</p>
+                  <ProductCard product={product} />
                 </div>
               ))}
             </div>
@@ -135,6 +85,54 @@ const App: React.FC = () => {
         <div className="contact">Entre em contato: contato@lanaymodas.com</div>
         <div className="copyright">© 2025 Lanay Modas. Todos os direitos reservados.</div>
       </footer>
+    </div>
+  );
+};
+
+interface ProductCardProps {
+  product: {
+    id: number;
+    name: string;
+    model?: string;
+    color?: string;
+    size?: string;
+    price: string;
+    imageUrl: string;
+    hoverImages?: string[];
+  };
+}
+
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const [hovering, setHovering] = useState(false);
+  const hoverImage = hovering && product.hoverImages ? product.hoverImages[0] : product.imageUrl;
+
+  return (
+    <div
+      className="product-image-container"
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+    >
+      <div className="product-image-wrapper">
+        {/* A imagem de hover troca suavemente com a imagem normal */}
+        <img
+          src={hoverImage}
+          alt={product.name}
+          className="product-image"
+          style={{ opacity: hovering ? 1 : 1, transition: 'opacity 0.3s ease' }} // Controle da transição de opacidade
+        />
+      </div>
+
+      <div className={`product-details ${hovering ? 'hover' : ''}`}>
+        <p className="product-name">{product.name}</p>
+        {hovering && (
+          <>
+            <p className="product-model">Modelo: {product.model || 'Desconhecido'}</p>
+            <p className="product-color">Cor: {product.color || 'Desconhecida'}</p>
+            <p className="product-size">Tamanho: {product.size || 'P/M/G'}</p>
+            <p className="product-price">Por apenas R${product.price}</p>
+          </>
+        )}
+      </div>
     </div>
   );
 };
