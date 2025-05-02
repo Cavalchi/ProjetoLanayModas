@@ -118,7 +118,7 @@ html, body, #root {
 .product-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  background-color: transparent;
 }
 
 /* Centralização do título fora do hover */
@@ -144,6 +144,8 @@ html, body, #root {
   display: block;
   margin: 0 auto;
   transition: opacity 0.3s ease;
+  z-index: 10; /* Adicionei um z-index maior para a imagem */
+  position: relative; /* Garanti que o z-index funcione */
 }
 
 .hover-image {
@@ -372,6 +374,66 @@ html, body, #root {
   background: none;
   border: none;
   cursor: pointer;
+}
+
+/* Estilos para os botões de ação nos cards */
+.product-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.view-details-button {
+  flex: 3; /* Aumentando a proporção para o botão de detalhes */
+  background-color: #4e6766;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-to-cart-button-small {
+  flex: 1;
+  background-color: #f5f5dc; /* Cor mais sutil, igual ao fundo */
+  color: #4e6766; /* Cor do texto para combinar com o botão principal */
+  border: 1px solid #4e6766; /* Borda para definir o botão */
+  padding: 8px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-to-cart-button-small:hover {
+  background-color: #4e6766;
+  color: white;
+}
+
+/* Estilo para o contador do carrinho */
+.cart-icon-container {
+  position: relative;
+  display: inline-block;
+}
+
+.cart-counter {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #4e6766;
+  color: white;
+  font-size: 11px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
 }
 
 /* Ajustes responsivos para a página de detalhes */
