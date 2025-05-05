@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-
+import CustomAddToCartButton from './CustomAddToCartButton.tsx';
 // Interfaces
 interface Product {
   id: number;
@@ -469,15 +469,7 @@ function App() {
                   </div>
                 )}
                 
-                <button 
-                  className="add-to-cart-button"
-                  onClick={() => {
-                    addToCart(selectedProduct, 1, selectedSize, selectedColor);
-                    setIsCartOpen(true);
-                  }}
-                >
-                  Adicionar ao Carrinho
-                </button>
+                <CustomAddToCartButton/>
               </div>
             </div>
           </div>
@@ -509,12 +501,7 @@ function App() {
                             currency: 'BRL'
                           })}
                         </p>
-                        <button 
-                          className="add-to-cart-button"
-                          onClick={() => addToCart(product)}
-                        >
-                          Adicionar ao Carrinho
-                        </button>
+                        <CustomAddToCartButton/>
                       </div>
                     </div>
                   ))}
