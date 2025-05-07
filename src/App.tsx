@@ -1,6 +1,6 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
-import CustomAddToCartButton from './CustomAddToCartButton.tsx';
+import CustomAddToCartButton from './CustomAddToCartButton';
 // Interfaces
 interface Product {
   id: number;
@@ -273,6 +273,43 @@ function App() {
     : products.filter(product => product.category === activeCategory);
 
   // Função para adicionar ao carrinho
+  const addToCart = (product: Product) => {
+    // Se estivermos na página do grid (sem produto selecionado), definimos tamanho/cor padrão
+    const productSize = selectedProduct ? selectedSize : (product.sizes ? product.sizes[0] : '');
+    const productColor = selectedProduct ? selectedColor : (product.colors ? product.colors[0] : '');
+    
+    // Verifica se o produto já está no carrinho
+    const existingItem = cartItems.find(item => 
+      item.id === product.id && 
+      item.selectedSize === productSize && 
+      item.selectedColor === productColor
+    );
+    
+    if (existingItem) {
+      // Se já existe, apenas atualize a quantidade
+      updateQuantity(existingItem.id, existingItem.quantity + 1);
+    } else {
+      // Se não, adicione um novo item ao carrinho
+      setCartItems(prevItems => [
+        ...prevItems,
+        {
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          quantity: 1,
+          imageUrl: product.imageUrl,
+          selectedSize: productSize,
+          selectedColor: productColor,
+        }
+      ]);
+    }
+    
+    // Você pode adicionar um feedback visual aqui se quiser
+    // alert('Produto adicionado ao carrinho!');
+    
+    // Ou abra o carrinho após adicionar (opcional)
+    // setIsCartOpen(true);
+  };
  
   // Função para remover do carrinho
   const removeFromCart = (productId: number) => {
@@ -442,7 +479,7 @@ function App() {
                   </div>
                 )}
                 
-                <CustomAddToCartButton/>
+                <CustomAddToCartButton onClick={() => addToCart(selectedProduct)} />
               </div>
             </div>
           </div>
@@ -474,7 +511,7 @@ function App() {
                             currency: 'BRL'
                           })}
                         </p>
-                        <CustomAddToCartButton/>
+                        <CustomAddToCartButton onClick={() => addToCart(product)} />
                       </div>
                     </div>
                   ))}

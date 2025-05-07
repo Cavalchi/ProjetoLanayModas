@@ -1,9 +1,17 @@
 import React from 'react';
-import './CustomAddToCartButton.css';  // Aqui é onde você importa o seu CSS
+import './CustomAddToCartButton.css';
 
-const ButtonComponent = () => {
+interface CustomAddToCartButtonProps {
+  onClick: () => void;
+}
+
+const CustomAddToCartButton: React.FC<CustomAddToCartButtonProps> = ({ onClick }) => {
   return (
-    <button className="button" style={{ '--clr': '#dac8b3' } as React.CSSProperties}>
+    <button 
+      className="button" 
+      style={{ '--clr': '#dac8b3' } as React.CSSProperties}
+      onClick={onClick}
+    >
       <span className="button-decor"></span>
       <div className="button-content">
         <div className="button__icon">
@@ -29,4 +37,4 @@ const ButtonComponent = () => {
   );
 }
 
-export default ButtonComponent;
+export default CustomAddToCartButton;
