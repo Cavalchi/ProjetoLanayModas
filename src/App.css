@@ -85,7 +85,7 @@ img {
 
 /* Header */
 .header {
-  background-color: var(--background-color);
+  background-color: #f0ddc7;
   box-shadow: var(--shadow-sm);
   position: sticky;
   top: 0;
@@ -102,13 +102,14 @@ img {
   justify-content: space-between;
 }
 
-.logo h1 {
-  font-size: var(--font-size-xl);
-  font-weight: 700;
-  color: var(--primary-color);
-  text-transform: uppercase;
-  letter-spacing: 1px;
+
+.logo img {
+  width: 1200%;
+  height: 200%;  
+  object-fit: contain;
+  
 }
+
 
 .nav-menu ul {
   display: flex;
