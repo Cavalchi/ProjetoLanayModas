@@ -33,15 +33,15 @@ const mockProducts: Product[] = [
     name: "BLUSA ACETINADA COM RENDA",
     category: "Blusas",
     price: 399.00,
-    imageUrl: "./images/blusa1.jpg",
+    imageUrl: "src/blusa1.jpg",
     description: "Blusa confeccionada em fiação de 100 % viscose. gola com lapela e manga comprida com punho. Detalhe de faixas laterais com aplique de renda do mesmo tom combinando.",
     colors: ["Bege", "Preto", "Rosa"],
     sizes: ["P", "M", "G"],
     reference: "BL001",
     additionalImages: [
-      "./images/blusa1detalhes1.jpg",
-      "./images/blusa1detalhes2.jpg",
-      "./images/blusa1detalhes3.jpg"
+      "src/blusa1detalhes1.jpg",
+      "src/blusa1detalhes2.jpg",
+      "src/blusa1detalhes3.jpg"
     ]
   },
   {
@@ -49,15 +49,15 @@ const mockProducts: Product[] = [
     name: "BLUSA COM BORDADOS",
     category: "Blusas",
     price: 300.00,
-    imageUrl: "./images/blusa2.jpg",
+    imageUrl: "/blusa2.jpg",
     description: "Blusa com gola alta e sem mangas. Detalhe de bordados do mesmo tom combinando. Fecho atrás com abertura e botões.",
     colors: ["Branco", "Verde", "Bege"],
     sizes: ["P", "M", "G", "GG"],
     reference: "BL002",
     additionalImages: [
-      "./images/blusa2detalhes1.jpg",
-      "./images/blusa2detalhes2.jpg",
-      "./images/blusa2detalhes3.jpg"
+      "/blusa2detalhes1.jpg",
+      "/blusa2detalhes2.jpg",
+      "/blusa2detalhes3.jpg"
     ]
   },
   {
