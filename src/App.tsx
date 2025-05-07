@@ -49,15 +49,15 @@ const mockProducts: Product[] = [
     name: "BLUSA COM BORDADOS",
     category: "Blusas",
     price: 300.00,
-    imageUrl: "/blusa2.jpg",
+    imageUrl: "./images/blusa2.jpg",
     description: "Blusa com gola alta e sem mangas. Detalhe de bordados do mesmo tom combinando. Fecho atrás com abertura e botões.",
     colors: ["Branco", "Verde", "Bege"],
     sizes: ["P", "M", "G", "GG"],
     reference: "BL002",
     additionalImages: [
-      "/blusa2detalhes1.jpg",
-      "/blusa2detalhes2.jpg",
-      "/blusa2detalhes3.jpg"
+      "./images/blusa2detalhes1.jpg",
+      "./images/blusa2detalhes2.jpg",
+      "./images/blusa2detalhes3.jpg"
     ]
   },
   {
@@ -183,15 +183,15 @@ const mockProducts: Product[] = [
     name: "VESTIDO DE TULE COM FRANZIDOS",
     category: "Vestidos",
     price: 270.00,
-    imageUrl: "src/assets/vestido1.jpg",
+    imageUrl: "./images/vestido1.jpg",
     description: "Vestido midi de gola alta e sem mangas. Detalhes franzidos. Parte inferior com acabamento assimétrico. Forro interior combinado.",
     colors: ["Marrom", "Preto", "Azul Royal"],
     sizes: ["P", "M", "G"],
     reference: "VE001",
     additionalImages: [
-      "src/assets/vestido1detalhes1.jpg",
-      "src/assets/vestido1detalhes2.jpg",
-      "src/assets/vestido1detalhes3.jpg"
+      "./images/vestido1detalhes1.jpg",
+      "./images/vestido1detalhes2.jpg",
+      "./images/vestido1detalhes3.jpg"
     ]
   },
   {
