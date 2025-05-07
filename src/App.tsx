@@ -33,15 +33,15 @@ const mockProducts: Product[] = [
     name: "BLUSA ACETINADA COM RENDA",
     category: "Blusas",
     price: 399.00,
-    imageUrl: "src/assets/blusa1.jpg",
+    imageUrl: "/assets/blusa1.jpg",
     description: "Blusa confeccionada em fiação de 100 % viscose. gola com lapela e manga comprida com punho. Detalhe de faixas laterais com aplique de renda do mesmo tom combinando.",
     colors: ["Bege", "Preto", "Rosa"],
     sizes: ["P", "M", "G"],
     reference: "BL001",
     additionalImages: [
-      "src/assets/blusa1detalhes1.jpg",
-      "src/assets/blusa1detalhes2.jpg",
-      "src/assets/blusa1detalhes3.jpg"
+      "/assets/blusa1detalhes1.jpg",
+      "/assets/blusa1detalhes2.jpg",
+      "/assets/blusa1detalhes3.jpg"
     ]
   },
   {
@@ -49,15 +49,15 @@ const mockProducts: Product[] = [
     name: "BLUSA COM BORDADOS",
     category: "Blusas",
     price: 300.00,
-    imageUrl: "src/assets/blusa2.jpg",
+    imageUrl: "/assets/blusa2.jpg",
     description: "Blusa com gola alta e sem mangas. Detalhe de bordados do mesmo tom combinando. Fecho atrás com abertura e botões.",
     colors: ["Branco", "Verde", "Bege"],
     sizes: ["P", "M", "G", "GG"],
     reference: "BL002",
     additionalImages: [
-      "src/assets/blusa2detalhes1.jpg",
-      "src/assets/blusa2detalhes2.jpg",
-      "src/assets/blusa2detalhes3.jpg"
+      "/assets/blusa2detalhes1.jpg",
+      "/assets/blusa2detalhes2.jpg",
+      "/assets/blusa2detalhes3.jpg"
     ]
   },
   {
@@ -65,15 +65,15 @@ const mockProducts: Product[] = [
     name: "COLETE CURTO COM A BARRA ELÁSTICA",
     category: "Blusas",
     price: 269.00,
-    imageUrl: "src/assets/blusa3.jpg",
+    imageUrl: "/assets/blusa3.jpg",
     description: "Colete de gola redonda e sem mangas. Bolsos frontais de patch com aba. Bainha ajustável com cordões elásticos. Fecho frontal com botões de pressão.",
     colors: ["Marrom", "Amarelo", "Cinza"],
     sizes: ["PP", "P", "M", "G"],
     reference: "BL003",
     additionalImages: [
-      "src/assets/blusa3detalhes1.jpg",
-      "src/assets/blusa3detalhes2.jpg",
-      "src/assets/blusa3detalhes3.jpg"
+      "/assets/blusa3detalhes1.jpg",
+      "/assets/blusa3detalhes2.jpg",
+      "/assets/blusa3detalhes3.jpg"
     ]
   },
   
@@ -83,15 +83,15 @@ const mockProducts: Product[] = [
     name: "CALÇA DE CINTURA ALTA",
     category: "Calças",
     price: 269.00,
-    imageUrl: "src/assets/calca1.jpg",
+    imageUrl: "/assets/calca1.jpg",
     description: "Calça de cintura alta com detalhe de costuras marcadas na frente e atrás. Bolsos frontais de linha viva. fecho frontal de ziper, botão interior e gancho metálico.",
     colors: ["Cinza", "Azul Marinho"],
     sizes: ["36", "38", "40", "42", "44"],
     reference: "CA001",
     additionalImages: [
-      "src/assets/calca1detalhes1.jpg",
-      "src/assets/calca1detalhes2.jpg",
-      "src/assets/calca1detalhes3.jpg"
+      "/assets/calca1detalhes1.jpg",
+      "/assets/calca1detalhes2.jpg",
+      "/assets/calca1detalhes3.jpg"
     ]
   },
   {
@@ -99,15 +99,15 @@ const mockProducts: Product[] = [
     name: "CALÇA COM PREGAS",
     category: "Calças",
     price: 220.99,
-    imageUrl: "src/assets/calca2.jpg",
+    imageUrl: "/assets/calca2.jpg",
     description: "Calça de cintura média com presilhas. Bolsos laterais e com abertura debruada atrás. Detalhe de pinças na frente. fecho frontal com zíper, botão e gancho metálico.",
     colors: ["Marrom", "Preto", "Azul Claro"],
     sizes: ["34", "36", "38", "40", "42"],
     reference: "CA002",
     additionalImages: [
-      "src/assets/calca2detalhes1.jpg",
-      "src/assets/calca2detalhes2.jpg",
-      "src/assets/calca2detalhes3.jpg"
+      "/assets/calca2detalhes1.jpg",
+      "/assets/calca2detalhes2.jpg",
+      "/assets/calca2detalhes3.jpg"
     ]
   },
   {
@@ -115,15 +115,15 @@ const mockProducts: Product[] = [
     name: "CALÇA JEANS",
     category: "Calças",
     price: 250.00,
-    imageUrl: "src/assets/calca3.jpg",
+    imageUrl: "/assets/calca3.jpg",
     description: "Jeans de cintura alta com cinco bolsos. Efeito de lavagem. pernas retas e parte inferior com acabamento sem costura. Ziper e botão a frente.",
     colors: ["Preto", "Cinza", "Roxo"],
     sizes: ["P", "M", "G"],
     reference: "CA003",
     additionalImages: [
-      "src/assets/calca3detalhes1.jpg",
-      "src/assets/calca3detalhes2.jpg",
-      "src/assets/calca3detalhes3.jpg"
+      "/assets/calca3detalhes1.jpg",
+      "/assets/calca3detalhes2.jpg",
+      "/assets/calca3detalhes3.jpg"
     ]
   },
   
@@ -133,15 +133,15 @@ const mockProducts: Product[] = [
     name: "SHORT DENIM TRF",
     category: "Shorts",
     price: 199.00,
-    imageUrl: "src/assets/short1.jpg",
+    imageUrl: "/assets/short1.jpg",
     description: "Short de cintura alta com cinco bolsos. Bainha com dobra. Fecho frontal com botões metálicos.",
     colors: ["Cinza", "Preto", "Branco"],
     sizes: ["36", "38", "40", "42"],
     reference: "SH001",
     additionalImages: [
-      "src/assets/short1detalhes1.jpg",
-      "src/assets/short1detalhes2.jpg",
-      "src/assets/short1detalhes3.jpg"
+      "/assets/short1detalhes1.jpg",
+      "/assets/short1detalhes2.jpg",
+      "/assets/short1detalhes3.jpg"
     ]
   },
   {
@@ -149,15 +149,15 @@ const mockProducts: Product[] = [
     name: "SHORT-SAIA CURTO COM ABERTURAS",
     category: "Shorts",
     price: 250.00,
-    imageUrl: "src/assets/short2.jpg",
+    imageUrl: "/assets/short2.jpg",
     description: "Short-saia confeccionado com fiação 100% algodão. cintura média e com presilhas. Bolsos laterais falsos e de patch atrás.",
     colors: ["Verde","Preto", "Bege"],
     sizes: ["P", "M", "G"],
     reference: "SH002",
     additionalImages: [
-      "src/assets/short2detalhes1.jpg",
-      "src/assets/short2detalhes2.jpg",
-      "src/assets/short2detalhes3.jpg"
+      "/assets/short2detalhes1.jpg",
+      "/assets/short2detalhes2.jpg",
+      "/assets/short2detalhes3.jpg"
     ]
   },
   {
@@ -165,15 +165,15 @@ const mockProducts: Product[] = [
     name: "SHORT DENIM TRF DOBRADO COM RASGOS",
     category: "Shorts",
     price: 199.00,
-    imageUrl: "src/assets/short3.jpg",
+    imageUrl: "/assets/short3.jpg",
     description: "Short de cintura alta com cinco bolsos. Detalhe de rasgos. Bainha com acabamento em dobra e desfiado. fecho frontal com ziper e botão metálico.",
     colors: ["Branco", "Cinza", "Rosa"],
     sizes: ["P", "M", "G"],
     reference: "SH003",
     additionalImages: [
-      "src/assets/short3detalhes1.jpg",
-      "src/assets/short3detalhes2.jpg",
-      "src/assets/short3detalhes3.jpg"
+      "/assets/short3detalhes1.jpg",
+      "/assets/short3detalhes2.jpg",
+      "/assets/short3detalhes3.jpg"
     ]
   },
   
