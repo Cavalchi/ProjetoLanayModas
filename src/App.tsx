@@ -442,12 +442,7 @@ function App() {
                   </div>
                 )}
                 
-                <div onClick={() => {
-                  addToCart(selectedProduct, 1, selectedSize, selectedColor);
-                  setIsCartOpen(true);
-                }}>
-                  <CustomAddToCartButton />
-                </div>
+                <CustomAddToCartButton/>
               </div>
             </div>
           </div>
@@ -479,9 +474,7 @@ function App() {
                             currency: 'BRL'
                           })}
                         </p>
-                        <div onClick={() => addToCart(product)}>
-                          <CustomAddToCartButton />
-                        </div>
+                        <CustomAddToCartButton/>
                       </div>
                     </div>
                   ))}
