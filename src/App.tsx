@@ -273,34 +273,7 @@ function App() {
     : products.filter(product => product.category === activeCategory);
 
   // Função para adicionar ao carrinho
-  const addToCart = (product: Product, quantity = 1, size?: string, color?: string) => {
-    setCartItems(prevItems => {
-      const existingItem = prevItems.find(item => 
-        item.id === product.id && 
-        item.selectedSize === size && 
-        item.selectedColor === color
-      );
-      
-      if (existingItem) {
-        return prevItems.map(item => 
-          (item.id === product.id && item.selectedSize === size && item.selectedColor === color)
-            ? { ...item, quantity: item.quantity + quantity } 
-            : item
-        );
-      } else {
-        return [...prevItems, { 
-          id: product.id, 
-          name: product.name, 
-          price: product.price, 
-          quantity,
-          imageUrl: product.imageUrl,
-          selectedSize: size || selectedSize,
-          selectedColor: color || selectedColor
-        }];
-      }
-    });
-  };
-
+ 
   // Função para remover do carrinho
   const removeFromCart = (productId: number) => {
     setCartItems(prevItems => prevItems.filter(item => item.id !== productId));
