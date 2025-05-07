@@ -33,15 +33,15 @@ const mockProducts: Product[] = [
     name: "BLUSA ACETINADA COM RENDA",
     category: "Blusas",
     price: 399.00,
-    imageUrl: "src/blusa1.jpg",
+    imageUrl: "./images/blusa1.jpg",
     description: "Blusa confeccionada em fiação de 100 % viscose. gola com lapela e manga comprida com punho. Detalhe de faixas laterais com aplique de renda do mesmo tom combinando.",
     colors: ["Bege", "Preto", "Rosa"],
     sizes: ["P", "M", "G"],
     reference: "BL001",
     additionalImages: [
-      "src/blusa1detalhes1.jpg",
-      "src/blusa1detalhes2.jpg",
-      "src/blusa1detalhes3.jpg"
+      "./images/blusa1detalhes1.jpg",
+      "./images/blusa1detalhes2.jpg",
+      "./images/blusa1detalhes3.jpg"
     ]
   },
   {
@@ -115,15 +115,15 @@ const mockProducts: Product[] = [
     name: "CALÇA JEANS",
     category: "Calças",
     price: 250.00,
-    imageUrl: "src/images/calca3.jpg",
+    imageUrl: "./images/calca3.jpg",
     description: "Jeans de cintura alta com cinco bolsos. Efeito de lavagem. pernas retas e parte inferior com acabamento sem costura. Ziper e botão a frente.",
     colors: ["Preto", "Cinza", "Roxo"],
     sizes: ["P", "M", "G"],
     reference: "CA003",
     additionalImages: [
-      "src/images/calca3detalhes1.jpg",
-      "src/images/calca3detalhes2.jpg",
-      "src/images/calca3detalhes3.jpg"
+      "./images/calca3detalhes1.jpg",
+      "./images/calca3detalhes2.jpg",
+      "./images/calca3detalhes3.jpg"
     ]
   },
   
@@ -199,15 +199,15 @@ const mockProducts: Product[] = [
     name: "VESTIDO CURTO COM LANTEJOULAS",
     category: "Vestidos",
     price: 500.00,
-    imageUrl: "src/assets/vestido2.jpg",
+    imageUrl: "./images/vestido2.jpg",
     description: "Vestido curto de gola redonda e sem mangas. Detalhe de aplique de lantejoulas. Fecho nas costas com ziper oculto na costura.",
     colors: ["Preto", "Bege", "Verde"],
     sizes: ["P", "M", "G", "GG"],
     reference: "VE002",
     additionalImages: [
-      "src/assets/vestido2detalhes1.jpg",
-      "src/assets/vestido2detalhes2.jpg",
-      "src/assets/vestido2detalhes3.jpg"
+      "./images/vestido2detalhes1.jpg",
+      "./images/vestido2detalhes2.jpg",
+      "./images/vestido2detalhes3.jpg"
     ]
   },
   {
@@ -215,15 +215,15 @@ const mockProducts: Product[] = [
     name: "VESTIDO COM OMBROS DESCOBERTOS",
     category: "Vestidos",
     price: 299.00,
-    imageUrl: "src/assets/vestido3.jpg",
+    imageUrl: "./images/vestido3.jpg",
     description: "Vestido curto de decote reto e ombros descobertos. Detalhes de abas na frente. Forro interior tipo short. Fecho atrás com zíper oculto na costura.",
     colors: ["Vermelho", "Listrado", "Azul"],
     sizes: ["P", "M", "G"],
     reference: "VE003",
     additionalImages: [
-      "src/assets/vestido3detalhes1.jpg",
-      "src/assets/vestido3detalhes2.jpg",
-      "src/assets/vestido3detalhes3.jpg"
+      "./images/vestido3detalhes1.jpg",
+      "./images/vestido3detalhes2.jpg",
+      "./images/vestido3detalhes3.jpg"
     ]
   }
 ];
