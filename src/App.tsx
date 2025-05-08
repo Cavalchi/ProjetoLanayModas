@@ -281,55 +281,84 @@ function App() {
 
   // Função para adicionar ao carrinho
   const addToCart = (product: Product) => {
-    // Se estivermos na página do grid (sem produto selecionado), definimos tamanho/cor padrão
-    const productSize = selectedProduct ? selectedSize : (product.sizes ? product.sizes[0] : '');
-    const productColor = selectedProduct ? selectedColor : (product.colors ? product.colors[0] : '');
-    
-    // Verifica se o produto já está no carrinho
-    const existingItem = cartItems.find(item => 
-      item.id === product.id && 
-      item.selectedSize === productSize && 
-      item.selectedColor === productColor
-    );
-    
-    if (existingItem) {
-      // Se já existe, apenas atualize a quantidade
-      updateQuantity(existingItem.id, existingItem.quantity + 1);
+    // Verifica se estamos na página de detalhes do produto ou na página principal
+    if (selectedProduct) {
+      // Na página de detalhes: use o tamanho/cor que o usuário selecionou
+      const existingItem = cartItems.find(item => 
+        item.id === product.id && 
+        item.selectedSize === selectedSize && 
+        item.selectedColor === selectedColor
+      );
+      
+      if (existingItem) {
+        // Se já existe com esse tamanho/cor, apenas atualize a quantidade
+        updateQuantity(existingItem.id, existingItem.selectedSize, existingItem.selectedColor, existingItem.quantity + 1);
+        toast.success('Quantidade atualizada no carrinho!');
+      } else {
+        // Se não, adicione um novo item ao carrinho com o tamanho/cor selecionados
+        setCartItems(prevItems => [
+          ...prevItems,
+          {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            quantity: 1,
+            imageUrl: product.imageUrl,
+            selectedSize: selectedSize,
+            selectedColor: selectedColor,
+          }
+        ]);
+        toast.success('Produto adicionado ao carrinho!');
+      }
     } else {
-      // Se não, adicione um novo item ao carrinho
-      setCartItems(prevItems => [
-        ...prevItems,
-        {
-          id: product.id,
-          name: product.name,
-          price: product.price,
-          quantity: 1,
-          imageUrl: product.imageUrl,
-          selectedSize: productSize,
-          selectedColor: productColor,
-        }
-      ]);
+      // Na página principal: adicione com tamanho/cor padrão e deixe o usuário escolher depois
+      // Primeiro verifica se já existe algum item desse produto no carrinho (independente do tamanho)
+      const existingItemAnySize = cartItems.find(item => item.id === product.id);
+      
+      if (!existingItemAnySize) {
+        // Adicione o produto com tamanho/cor padrão que serão escolhidos depois
+        setCartItems(prevItems => [
+          ...prevItems,
+          {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            quantity: 1,
+            imageUrl: product.imageUrl,
+            selectedSize: product.sizes ? product.sizes[0] : '',
+            selectedColor: product.colors ? product.colors[0] : '',
+          }
+        ]);
+        toast.success('Produto adicionado ao carrinho!');
+      } else {
+        // Se já existe, apenas atualize a quantidade do item existente
+        updateQuantity(existingItemAnySize.id, existingItemAnySize.selectedSize, existingItemAnySize.selectedColor, existingItemAnySize.quantity + 1);
+        toast.success('Quantidade atualizada no carrinho!');
+      }
     }
     
-    // Você pode adicionar um feedback visual aqui se quiser
-    // alert('Produto adicionado ao carrinho!');
-    
-    // Ou abra o carrinho após adicionar (opcional)
-    // setIsCartOpen(true);
+    // Abre o carrinho após adicionar o produto
+    setIsCartOpen(true);
   };
  
-  // Função para remover do carrinho
-  const removeFromCart = (productId: number) => {
-    setCartItems(prevItems => prevItems.filter(item => item.id !== productId));
+  // Função para remover do carrinho - corrigida para aceitar undefined
+  const removeFromCart = (productId: number, size: string | undefined, color: string | undefined) => {
+    setCartItems(prevItems => prevItems.filter(item => 
+      !(item.id === productId && 
+        item.selectedSize === size && 
+        item.selectedColor === color)
+    ));
   };
 
-  // Função para atualizar quantidade
-  const updateQuantity = (productId: number, newQuantity: number) => {
+  // Função para atualizar quantidade - corrigida para aceitar undefined
+  const updateQuantity = (productId: number, size: string | undefined, color: string | undefined, newQuantity: number) => {
     if (newQuantity < 1) return;
     
     setCartItems(prevItems => 
       prevItems.map(item => 
-        item.id === productId 
+        item.id === productId && 
+        item.selectedSize === size && 
+        item.selectedColor === color
           ? { ...item, quantity: newQuantity } 
           : item
       )
@@ -581,10 +610,10 @@ function App() {
               <>
                 <div className="cart-items">
                   {cartItems.map(item => {
-                    const product = products.find(product => product.id === item.id)
+                    const product = products.find(product => product.id === item.id);
 
                     return (
-                      <div key={item.id} className="cart-item">
+                      <div key={`${item.id}-${item.selectedSize}-${item.selectedColor}`} className="cart-item">
                         <img src={item.imageUrl} alt={item.name} />
                         <div className="item-details">
                           <h3>{item.name}</h3>
@@ -595,32 +624,80 @@ function App() {
                             })}
                           </p>
                           
-                          {item.selectedSize && (
-                            <div>
-                              <span className="item-size">Tamanho:</span>{' '}
-                              <select>
-                                {product?.sizes?.map(size => {
-                                  return(
-                                    <option key={size}>{size}</option>
-                                  )
-                                })}
+                          {/* Seleção de tamanho com destaque visual */}
+                          {product?.sizes && product.sizes.length > 0 && (
+                            <div className="item-size-selection">
+                              <span className="item-size-label">Tamanho:</span>
+                              <div className="size-options">
+                                {product.sizes.map(size => (
+                                  <button 
+                                    key={size} 
+                                    className={`size-option ${item.selectedSize === size ? 'active' : ''}`}
+                                    onClick={() => {
+                                      // Atualiza o tamanho do item no carrinho
+                                      setCartItems(prevItems => 
+                                        prevItems.map(cartItem => 
+                                          cartItem.id === item.id && 
+                                          cartItem.selectedColor === item.selectedColor && 
+                                          cartItem.selectedSize === item.selectedSize
+                                            ? { ...cartItem, selectedSize: size } 
+                                            : cartItem
+                                        )
+                                      );
+                                    }}
+                                  >
+                                    {size}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                          
+                          {/* Seleção de cor */}
+                          {product?.colors && product.colors.length > 0 && (
+                            <div className="item-color-selection">
+                              <span className="item-color-label">Cor:</span>
+                              <select 
+                                value={item.selectedColor}
+                                onChange={(e) => {
+                                  // Atualiza a cor do item no carrinho
+                                  setCartItems(prevItems => 
+                                    prevItems.map(cartItem => 
+                                      cartItem.id === item.id && 
+                                      cartItem.selectedColor === item.selectedColor && 
+                                      cartItem.selectedSize === item.selectedSize
+                                        ? { ...cartItem, selectedColor: e.target.value } 
+                                        : cartItem
+                                    )
+                                  );
+                                }}
+                              >
+                                {product.colors.map(color => (
+                                  <option key={color} value={color}>{color}</option>
+                                ))}
                               </select>
                             </div>
                           )}
                           
-                          {item.selectedColor && (
-                            <p className="item-color">Cor: {item.selectedColor}</p>
-                          )}
-                          
                           <div className="quantity-control">
                             <button 
-                              onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                              onClick={() => updateQuantity(
+                                item.id, 
+                                item.selectedSize, 
+                                item.selectedColor, 
+                                item.quantity - 1
+                              )}
                               disabled={item.quantity <= 1}
                             >
                               -
                             </button>
                             <span>{item.quantity}</span>
-                            <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>
+                            <button onClick={() => updateQuantity(
+                              item.id, 
+                              item.selectedSize, 
+                              item.selectedColor, 
+                              item.quantity + 1
+                            )}>
                               +
                             </button>
                           </div>
@@ -628,12 +705,16 @@ function App() {
                         
                         <button 
                           className="remove-item"
-                          onClick={() => removeFromCart(item.id)}
+                          onClick={() => removeFromCart(
+                            item.id, 
+                            item.selectedSize, 
+                            item.selectedColor
+                          )}
                         >
                           Remover
                         </button>
                       </div>
-                    )
+                    );
                   })}
                 </div>
                 
