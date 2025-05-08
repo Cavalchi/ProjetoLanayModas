@@ -102,6 +102,9 @@ img {
   justify-content: space-between;
 }
 
+.logo{
+  cursor: pointer;
+}
 
 .logo img {
   width: 1200%;
@@ -613,6 +616,22 @@ img {
   letter-spacing: 1px;
 }
 
+.done-button {
+  background-color: var(--success-color);
+  color: white;
+  border: none;
+  width: 100%;
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
 .continue-shopping {
   background: none;
   border: 1px solid var(--primary-color);
@@ -667,6 +686,53 @@ img {
   text-align: center;
   padding: var(--spacing-xl) 0;
   color: #fff;
+}
+
+.account-section {
+  max-width: 400px;
+  margin: 2rem auto;
+  background: #f9f9f9;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.account-section h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.account-form input {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.account-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.login-button {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  background-color: #222;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.login-button:hover {
+  background-color: #444;
 }
 
 /* Responsividade */

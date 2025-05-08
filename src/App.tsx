@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import CustomAddToCartButton from './CustomAddToCartButton';
+import { BadgeCheck } from 'lucide-react';
+import { toast } from 'sonner';
 // Interfaces
 interface Product {
   id: number;
@@ -242,6 +244,11 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedSize, setSelectedSize] = useState<string>('');
   const [selectedColor, setSelectedColor] = useState<string>('');
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [finished, setFinished] = useState(false);
+
 
   // Carregar produtos
   useEffect(() => {
@@ -337,7 +344,11 @@ function App() {
       {/* Header */}
       <header className="header">
         <div className="header-container">
-          <div className="logo">
+          <div className="logo" onClick={() => {
+            setActiveCategory('Todos')
+            setSelectedProduct(null)
+            setIsLoginOpen(false)
+          }}>
             <h1>Lanay Modas</h1>
           </div>
           
@@ -356,6 +367,7 @@ function App() {
                     onClick={() => {
                       setActiveCategory(category);
                       setIsMenuOpen(false);
+                      setIsLoginOpen(false);
                     }}
                   >
                     {category}
@@ -364,15 +376,8 @@ function App() {
               ))}
             </ul>
           </nav>
-
           
           <div className="header-actions">
-            <button className="icon-button home-button" title="Página Inicial"> 
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-              </svg>
-            </button>
             <button className="cart-button" onClick={() => setIsCartOpen(true)} title="Carrinho">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="9" cy="21" r="1"></circle>
@@ -381,7 +386,10 @@ function App() {
               </svg>
               {cartItemCount > 0 && <span className="cart-count">{cartItemCount}</span>}
             </button>
-            <button className="icon-button user-button" title="Minha Conta">
+            <button className="icon-button user-button" title="Minha Conta" onClick={() => {
+              setSelectedProduct(null) 
+              setIsLoginOpen(true)
+            }}>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                 <circle cx="12" cy="7" r="4"></circle>
@@ -393,133 +401,156 @@ function App() {
       
       {/* Main Content */}
       <main className="main-content">
-        {selectedProduct ? (
-          /* Product Detail Page */
-          <div className="product-detail-page">
-            <button className="back-button" onClick={() => setSelectedProduct(null)}>
-              ← Voltar
-            </button>
-            
-            <div className="product-detail">
-              <div className="product-gallery">
-                <img 
-                  src={selectedImage || selectedProduct.imageUrl}
-                  alt={selectedProduct.name}
-                  className="product-main-image"
-                />
-                
-                {selectedProduct.additionalImages && (
-                  <div className="product-thumbnails">
-                    {/* Miniatura da imagem principal */}
-                    <img 
-                      src={selectedProduct.imageUrl}
-                      alt={`${selectedProduct.name} - principal`}
-                      className={`product-thumbnail ${selectedImage === null ? 'active' : ''}`}
-                      onClick={() => setSelectedImage(null)}
-                    />
-                    
-                    {/* Miniaturas das imagens adicionais */}
-                    {selectedProduct.additionalImages.map((img, index) => (
-                      <img 
-                        key={index}
-                        src={img}
-                        alt={`${selectedProduct.name} - detalhe ${index + 1}`}
-                        className={`product-thumbnail ${selectedImage === img ? 'active' : ''}`}
-                        onClick={() => setSelectedImage(img)}
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
+        {selectedProduct ? 
+          (
+            /* Product Detail Page */
+            <div className="product-detail-page">
+              <button className="back-button" onClick={() => setSelectedProduct(null)}>
+                ← Voltar
+              </button>
               
-              <div className="product-info">
-                <h1 className="product-title">{selectedProduct.name}</h1>
-                <p className="product-price">
-                  {selectedProduct.price.toLocaleString('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL'
-                  })}
-                </p>
-                
-                <div className="product-description">
-                  <p>{selectedProduct.description}</p>
+              <div className="product-detail">
+                <div className="product-gallery">
+                  <img 
+                    src={selectedImage || selectedProduct.imageUrl}
+                    alt={selectedProduct.name}
+                    className="product-main-image"
+                  />
+                  
+                  {selectedProduct.additionalImages && (
+                    <div className="product-thumbnails">
+                      {/* Miniatura da imagem principal */}
+                      <img 
+                        src={selectedProduct.imageUrl}
+                        alt={`${selectedProduct.name} - principal`}
+                        className={`product-thumbnail ${selectedImage === null ? 'active' : ''}`}
+                        onClick={() => setSelectedImage(null)}
+                      />
+                      
+                      {/* Miniaturas das imagens adicionais */}
+                      {selectedProduct.additionalImages.map((img, index) => (
+                        <img 
+                          key={index}
+                          src={img}
+                          alt={`${selectedProduct.name} - detalhe ${index + 1}`}
+                          className={`product-thumbnail ${selectedImage === img ? 'active' : ''}`}
+                          onClick={() => setSelectedImage(img)}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </div>
                 
-                {selectedProduct.sizes && selectedProduct.sizes.length > 0 && (
-                  <div className="product-sizes">
-                    <h3>Tamanhos</h3>
-                    <div className="size-options">
-                      {selectedProduct.sizes.map(size => (
-                        <button 
-                          key={size} 
-                          className={`size-option ${selectedSize === size ? 'active' : ''}`}
-                          onClick={() => setSelectedSize(size)}
-                        >
-                          {size}
-                        </button>
-                      ))}
-                    </div>
+                <div className="product-info">
+                  <h1 className="product-title">{selectedProduct.name}</h1>
+                  <p className="product-price">
+                    {selectedProduct.price.toLocaleString('pt-BR', {
+                      style: 'currency',
+                      currency: 'BRL'
+                    })}
+                  </p>
+                  
+                  <div className="product-description">
+                    <p>{selectedProduct.description}</p>
                   </div>
-                )}
-                
-                {selectedProduct.colors && selectedProduct.colors.length > 0 && (
-                  <div className="product-colors">
-                    <h3>Cores</h3>
-                    <div className="color-options">
-                      {selectedProduct.colors.map(color => (
-                        <button 
-                          key={color} 
-                          className={`color-option ${selectedColor === color ? 'active' : ''}`}
-                          onClick={() => setSelectedColor(color)}
-                        >
-                          {color}
-                        </button>
-                      ))}
+                  
+                  {selectedProduct.sizes && selectedProduct.sizes.length > 0 && (
+                    <div className="product-sizes">
+                      <h3>Tamanhos</h3>
+                      <div className="size-options">
+                        {selectedProduct.sizes.map(size => (
+                          <button 
+                            key={size} 
+                            className={`size-option ${selectedSize === size ? 'active' : ''}`}
+                            onClick={() => setSelectedSize(size)}
+                          >
+                            {size}
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
-                
-                <CustomAddToCartButton onClick={() => addToCart(selectedProduct)} />
+                  )}
+                  
+                  {selectedProduct.colors && selectedProduct.colors.length > 0 && (
+                    <div className="product-colors">
+                      <h3>Cores</h3>
+                      <div className="color-options">
+                        {selectedProduct.colors.map(color => (
+                          <button 
+                            key={color} 
+                            className={`color-option ${selectedColor === color ? 'active' : ''}`}
+                            onClick={() => setSelectedColor(color)}
+                          >
+                            {color}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  
+                  <CustomAddToCartButton onClick={() => addToCart(selectedProduct)} />
+                </div>
               </div>
             </div>
-          </div>
-        ) : (
-          /* Product Grid */
-          <div className="products-grid">
-            {isLoading ? (
-              <div className="loading">Carregando produtos...</div>
-            ) : (
-              <>
-                <h2 className="category-title">{activeCategory}</h2>
-                <div className="product-list">
-                  {filteredProducts.map(product => (
-                    <div key={product.id} className="product-card">
-                      <div 
-                        className="product-image" 
-                        onClick={() => viewProductDetails(product)}
-                      >
-                        <img src={product.imageUrl} alt={product.name} />
-                        <div className="product-overlay">
-                          <button className="view-details">Ver detalhes</button>
+          ) : isLoginOpen ? (
+            <section className="account-section">
+              <h2>Entrar na sua conta</h2>
+              <div className="account-form">
+                <input
+                  type="text"
+                  placeholder="Usuário"
+                  value={username}
+                  onChange={e => setUsername(e.target.value)}
+                />
+                <input
+                  type="password"
+                  placeholder="Senha"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                />
+
+                <button className="login-button">
+                  Entrar
+                </button>
+              </div>
+            </section>
+          ) : (
+            /* Product Grid */
+            <div className="products-grid">
+              {isLoading ? (
+                <div className="loading">Carregando produtos...</div>
+              ) : (
+                <>
+                  <h2 className="category-title">{activeCategory}</h2>
+                  <div className="product-list">
+                    {filteredProducts.map(product => (
+                      <div key={product.id} className="product-card">
+                        <div 
+                          className="product-image" 
+                          onClick={() => viewProductDetails(product)}
+                        >
+                          <img src={product.imageUrl} alt={product.name} />
+                          <div className="product-overlay">
+                            <button className="view-details">Ver detalhes</button>
+                          </div>
+                        </div>
+                        <div className="product-info">
+                          <h3 className="product-title">{product.name}</h3>
+                          <p className="product-price">
+                            {product.price.toLocaleString('pt-BR', {
+                              style: 'currency', 
+                              currency: 'BRL'
+                            })}
+                          </p>
+                          <CustomAddToCartButton onClick={() => addToCart(product)} />
                         </div>
                       </div>
-                      <div className="product-info">
-                        <h3 className="product-title">{product.name}</h3>
-                        <p className="product-price">
-                          {product.price.toLocaleString('pt-BR', {
-                            style: 'currency', 
-                            currency: 'BRL'
-                          })}
-                        </p>
-                        <CustomAddToCartButton onClick={() => addToCart(product)} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
-        )}
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+          )}
       </main>
       
       {/* Shopping Cart */}
@@ -528,7 +559,12 @@ function App() {
           <div className="cart-content">
             <div className="cart-header">
               <h2>Seu Carrinho</h2>
-              <button className="close-cart" onClick={() => setIsCartOpen(false)}>×</button>
+              <button className="close-cart" onClick={() => {
+                setIsCartOpen(false)
+                setFinished(false)
+              }}>
+                ×
+              </button>
             </div>
             
             {cartItems.length === 0 ? (
@@ -544,48 +580,61 @@ function App() {
             ) : (
               <>
                 <div className="cart-items">
-                  {cartItems.map(item => (
-                    <div key={item.id} className="cart-item">
-                      <img src={item.imageUrl} alt={item.name} />
-                      <div className="item-details">
-                        <h3>{item.name}</h3>
-                        <p className="item-price">
-                          {item.price.toLocaleString('pt-BR', {
-                            style: 'currency',
-                            currency: 'BRL'
-                          })}
-                        </p>
-                        
-                        {item.selectedSize && (
-                          <p className="item-size">Tamanho: {item.selectedSize}</p>
-                        )}
-                        
-                        {item.selectedColor && (
-                          <p className="item-color">Cor: {item.selectedColor}</p>
-                        )}
-                        
-                        <div className="quantity-control">
-                          <button 
-                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            disabled={item.quantity <= 1}
-                          >
-                            -
-                          </button>
-                          <span>{item.quantity}</span>
-                          <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>
-                            +
-                          </button>
+                  {cartItems.map(item => {
+                    const product = products.find(product => product.id === item.id)
+
+                    return (
+                      <div key={item.id} className="cart-item">
+                        <img src={item.imageUrl} alt={item.name} />
+                        <div className="item-details">
+                          <h3>{item.name}</h3>
+                          <p className="item-price">
+                            {item.price.toLocaleString('pt-BR', {
+                              style: 'currency',
+                              currency: 'BRL'
+                            })}
+                          </p>
+                          
+                          {item.selectedSize && (
+                            <div>
+                              <span className="item-size">Tamanho:</span>{' '}
+                              <select>
+                                {product?.sizes?.map(size => {
+                                  return(
+                                    <option key={size}>{size}</option>
+                                  )
+                                })}
+                              </select>
+                            </div>
+                          )}
+                          
+                          {item.selectedColor && (
+                            <p className="item-color">Cor: {item.selectedColor}</p>
+                          )}
+                          
+                          <div className="quantity-control">
+                            <button 
+                              onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                              disabled={item.quantity <= 1}
+                            >
+                              -
+                            </button>
+                            <span>{item.quantity}</span>
+                            <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>
+                              +
+                            </button>
+                          </div>
                         </div>
+                        
+                        <button 
+                          className="remove-item"
+                          onClick={() => removeFromCart(item.id)}
+                        >
+                          Remover
+                        </button>
                       </div>
-                      
-                      <button 
-                        className="remove-item"
-                        onClick={() => removeFromCart(item.id)}
-                      >
-                        Remover
-                      </button>
-                    </div>
-                  ))}
+                    )
+                  })}
                 </div>
                 
                 <div className="cart-footer">
@@ -601,13 +650,28 @@ function App() {
                     </span>
                   </div>
                   
-                  <button className="checkout-button">
-                    Finalizar Compra
-                  </button>
+                  {!finished && (
+                    <button className="checkout-button" onClick={() => {
+                      setFinished(true)
+                      toast.success('Compra finalizada com sucesso!')
+                    }}>
+                      Finalizar Compra
+                    </button>
+                  )}
+
+                  {finished && (
+                    <button className="done-button">
+                      <BadgeCheck /> 
+                      Compra finalizada
+                    </button>
+                  )}
                   
                   <button 
                     className="continue-shopping"
-                    onClick={() => setIsCartOpen(false)}
+                    onClick={() => {
+                      setIsCartOpen(false)
+                      setFinished(false)
+                    }}
                   >
                     Continuar Comprando
                   </button>
