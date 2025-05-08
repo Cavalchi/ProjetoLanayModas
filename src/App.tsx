@@ -733,8 +733,10 @@ function App() {
                   
                   {!finished && (
                     <button className="checkout-button" onClick={() => {
-                      setFinished(true)
-                      toast.success('Compra finalizada com sucesso!')
+                      setFinished(true);
+                      // Limpar o carrinho após finalizar a compra
+                      setCartItems([]);
+                      toast.success('Compra finalizada com sucesso!');
                     }}>
                       Finalizar Compra
                     </button>
