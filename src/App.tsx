@@ -239,7 +239,7 @@ function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [categories, setCategories] = useState<string[]>([]);
-  const [activeCategory, setActiveCategory] = useState('Todos');
+  const [activeCategory, setActiveCategory] = useState('Todos os produtos');
   const [isLoading, setIsLoading] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedSize, setSelectedSize] = useState<string>('');
@@ -275,7 +275,7 @@ function App() {
   };
 
   // Filtrar produtos por categoria
-  const filteredProducts = activeCategory === 'Todos'
+  const filteredProducts = activeCategory === 'Todos os produtos'
     ? products
     : products.filter(product => product.category === activeCategory);
 
